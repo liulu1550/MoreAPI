@@ -41,12 +41,17 @@ MoreAPI接口文档： [http://doc.moreapi.wouldmissyou.com/](http://doc.moreapi
 
 #### 调用示例
 
+安装
+```shell
+pip install MoreApi
+```
+
 ```python
-import moreapi
+import MoreApi
 
 if __name__ == '__main__':
     token = "您账号的token"  # 注册账号后登录获取token
-    douyin_api = moreapi.DouYin(token)  # 抖音接口
+    douyin_api = MoreApi.DouYin(token)  # 抖音接口
     video_data = douyin_api.get_video_data("7258926046223797544")  # 调用获取抖音单一视频信息API
     print(video_data)
 ```

@@ -2,7 +2,7 @@ import requests
 from MoreAPI.Auth import Auth
 
 
-class Video(Auth):
+class KuWo(Auth):
     def __init__(self, token: str):
         """
         初始化
@@ -38,7 +38,7 @@ class Video(Auth):
 if __name__ == '__main__':
     token = "62cauRzwo9nL2vK8DgtY9bCJ4nnsvYYvDROeodJIONJntkrrwVODh16z2myRnW2c"
 
-    moreapi = Video(token)
+    moreapi = KuWo(token)
 
     t = moreapi.get_music_data("440623")
     print(t)
