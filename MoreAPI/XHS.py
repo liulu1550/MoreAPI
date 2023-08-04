@@ -88,16 +88,4 @@ class XHS(Auth):
         return result.json()
 
 
-if __name__ == '__main__':
-    token = "62cauRzwo9nL2vK8DgtY9bCJ4nnsvYYvDROeodJIONJntkrrwVODh16z2myRnW2c"
 
-    moreapi = XHS(token)
-
-    # t = moreapi.get_note_by_id("64bdf819000000001201a397")
-    # print(t)
-
-    # t = moreapi.get_user_info_data("61dbbe4e000000002102591f")
-    # print(t)
-
-    t = moreapi.get_user_notes("5c49ff350000000012011a11")
-    print(t)

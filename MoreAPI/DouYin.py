@@ -51,9 +51,3 @@ class DouYin(Auth):
         return result.json()
 
 
-if __name__ == '__main__':
-    token = "62cauRzwo9nL2vK8DgtY9bCJ4nnsvYYvDROeodJIONJntkrrwVODh16z2myRnW2c"
-    douyin_api = DouYin(token)
-
-    video_data = douyin_api.get_video_data("7258926046223797544")
-    user_data = douyin_api.get_user_data("MS4wLjABAAAAcmS1UJphcbKEcmAQvWC8KLIyKCmzHIMGAl4L2Jhaw9QLV0O3PwSZVJJF31erxLXu")

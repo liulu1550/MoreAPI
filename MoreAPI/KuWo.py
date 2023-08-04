@@ -35,10 +35,4 @@ class KuWo(Auth):
         return result.json()
 
 
-if __name__ == '__main__':
-    token = "62cauRzwo9nL2vK8DgtY9bCJ4nnsvYYvDROeodJIONJntkrrwVODh16z2myRnW2c"
 
-    moreapi = KuWo(token)
-
-    t = moreapi.get_music_data("440623")
-    print(t)

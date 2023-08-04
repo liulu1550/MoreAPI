@@ -21,10 +21,4 @@ class Video(Auth):
         return result.json()
 
 
-if __name__ == '__main__':
-    token = "62cauRzwo9nL2vK8DgtY9bCJ4nnsvYYvDROeodJIONJntkrrwVODh16z2myRnW2c"
 
-    moreapi = Video(token)
-
-    t = moreapi.get_video_data("https://www.xiaohongshu.com/explore/64bb5b91000000001003125e")
-    print(t)

@@ -20,11 +20,3 @@ class Auth:
         result = requests.get(url=url, headers=self.headers)
         return result.json()
 
-
-if __name__ == '__main__':
-    token = "62cauRzwo9nL2vK8DgtY9bCJ4nnsvYYvDROeodJIONJntkrrwVODh16z2myRnW2c"
-    auth = Auth(token)
-    # r = auth.daily_check_in()
-    # print(r)
-    r2 = auth.get_user_info()
-    print(r2)
