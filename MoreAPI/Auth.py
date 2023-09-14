@@ -15,8 +15,4 @@ class Auth:
         result = requests.get(url=url, headers=self.headers)
         return result.json()
 
-    def get_user_info(self):
-        url = f'{self.domain}/auth/user_info/'
-        result = requests.get(url=url, headers=self.headers)
-        return result.json()
 

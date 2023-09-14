@@ -1,4 +1,14 @@
+#!/usr/local/bin/python3
+# -*- coding: utf-8 -*-
+
+"""
+@Project : MoreAPI
+@File    : Video.py
+@Author  : MoreCoding多点部落
+@Time    : 2023/9/14 1:54 PM
+"""
 import requests
+
 from MoreAPI.Auth import Auth
 
 
@@ -11,14 +21,17 @@ class Video(Auth):
         super().__init__(token)
         self.video_data_url = self.domain + "/api/video/"
 
-    def get_video_data(self, share_text: str):
+    def video_data(self, share_text: str):
         """
-        抖音、快手、小红书、哔哩哔哩、西瓜、头条。。。。
-        :param share_text: 短视频分享链接或网页链接
+        获取视频详情
+        :param share_text: 视频ID
         :return:
         """
-        result = requests.get(url=self.video_data_url, headers=self.headers, params={"share_text": share_text})
+
+        if not share_text:
+            return None
+        try:
+            result = requests.get(self.video_data_url, headers=self.headers, params={"share_text": share_text})
+        except:
+            return None
         return result.json()
-
-
-

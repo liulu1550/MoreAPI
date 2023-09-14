@@ -1,6 +1,6 @@
 ## Description/简介
 
-`MoreAPI`是抖音/酷我/小红书/各视频平台非官方的RESTful API平台。
+`MoreAPI`是抖音/快手/小红书/哔哩哔哩/YouTube等各视频平台非官方的RESTful API平台。
 
 `MoreAPI`提供的API只能获取公开数据，即任何人都可以通过浏览器及APP等访问相关服务以获取它们。
 
@@ -52,7 +52,7 @@ import MoreApi
 if __name__ == '__main__':
     token = "您账号的token"  # 注册账号后登录获取token
     douyin_api = MoreApi.DouYin(token)  # 抖音接口
-    video_data = douyin_api.get_video_data("7258926046223797544")  # 调用获取抖音单一视频信息API
+    video_data = douyin_api.aweme_data("7258926046223797544")  # 调用获取抖音单一视频信息API
     print(video_data)
 ```
 
