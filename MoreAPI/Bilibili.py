@@ -23,6 +23,7 @@ class Bilibili(Auth):
         self.video_download_url = self.domain + "/api/bilibili/video_download"
         self.user_post_url = self.domain + "/api/bilibili/user_post"
         self.search_data_url = self.domain + "/api/bilibili/search"
+        self.comment_url = self.domain + "/api/bilibili/comments"
 
     def video_data(self, bvid: str):
         """
@@ -93,4 +94,18 @@ class Bilibili(Auth):
         except:
             return None
 
+        return result.json()
+
+    def get_comments(self, aid: int):
+        """
+        获取视频所有评论
+        :param aid: 视频的AID
+        :return:
+        """
+        if not aid:
+            return None
+        try:
+            result = requests.get(self.comment_url, params={"aid": aid})
+        except:
+            return None
         return result.json()
