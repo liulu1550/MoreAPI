@@ -1,6 +1,6 @@
 ## Description/简介
 
-`MoreAPI`是抖音/快手/小红书/哔哩哔哩/YouTube等各视频平台非官方的RESTful API平台。
+`MoreAPI`是抖音/快手/小红书/哔哩哔哩/YouTube/微博weibo等各视频平台非官方的RESTful API平台。
 
 `MoreAPI`提供的API只能获取公开数据，即任何人都可以通过浏览器及APP等访问相关服务以获取它们。
 

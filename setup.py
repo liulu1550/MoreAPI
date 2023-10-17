@@ -4,9 +4,9 @@ setup(
 
     name="MoreApi",  # 包名
     author='MoreCoding',  #作者
-    version="0.4.4",  # 版本
+    version="0.4.5",  # 版本
     url='https://github.com/liulu1550/MoreAPI.git',  # github地址
-    description='MoreAPI抖音/快手/小红书/哔哩哔哩/YouTube等各视频平台非官方的RESTful API平台',  #包的简述
+    description='MoreAPI抖音/快手/小红书/哔哩哔哩/YouTube/微博等各视频平台非官方的RESTful API平台',  #包的简述
     long_description=open('README.md', encoding='utf-8').read(),  # #包的详细介绍
     long_description_content_type="text/markdown",
     # 需要包含的子包列表
