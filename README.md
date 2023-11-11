@@ -46,11 +46,11 @@ MoreAPI接口文档： [http://doc.moreapi.wouldmissyou.com/](http://doc.moreapi
 
 #### 调用示例
 
-安装
+安装SDK
 ```shell
 pip install MoreApi
 ```
-使用
+使用SDK
 ```python
 import MoreApi
 
@@ -59,6 +59,28 @@ if __name__ == '__main__':
     douyin_api = MoreApi.DouYin(token)  # 抖音接口
     video_data = douyin_api.aweme_data("7258926046223797544")  # 调用获取抖音单一视频信息API
     print(video_data)
+```
+
+#### 调用API
+
+```python
+import requests
+
+url = "https://moreapi.wouldmissyou.com/api/douyin/video_data/"
+
+params={
+    "aweme_id":"7258926046223797544",  # 视频ID（与share_text必填一项）
+    "share_text": ""  # APP端视频分享文案或短连接（与aweme_id必填一项） 例：4.38 KJi:/ U@y.TY 01/11 生活可以忙碌疲惫，但心态要简单快乐！ https://v.douyin.com/iRJwHFGy/ 复制此链接，打开Dou音搜索，直接观看视频！
+}
+headers = {
+    'Cookie': '',  # 选填
+    'Authorization': ''  # 必填 。 填写通过注册获取的token
+}
+
+response = requests.request("GET", url, headers=headers, params=params)
+
+print(response.text)
+
 ```
 
 文档地址：[http://doc.moreapi.wouldmissyou.com/](http://doc.moreapi.wouldmissyou.com/)
