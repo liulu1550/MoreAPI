@@ -21,7 +21,7 @@ MoreAPI_PRO接口文档：[https://apifox.com/apidoc/shared-0b55c993-4634-4f70-b
 登录后进行签到可以随机获得20-50次API请求，每天00:00重置签到。签到获得的API请求次数只有请求API才会消耗。
 
 ## 售价
-`MoreAPI`经赞助者商榷，可对外授权源码，源码无加密。源码功能包含目前`MoreAPI`所有接口功能，并保证1年功能更新和BUG修复。`MoreAPI`源码购买地址[：点击购买](https://www.wouldmissyou.com/2023/09/27/77/)
+`MoreAPI`经赞助者商榷，可对外授权源码，源码无加密。源码功能包含目前`MoreAPI`所有接口功能，并保证免费技术支持。`MoreAPI`源码购买地址[：点击购买](https://www.wouldmissyou.com/2023/09/27/77/)
 
 ## 功能
 - 抖音API
