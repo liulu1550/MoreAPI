@@ -34,7 +34,7 @@ class Bilibili(Auth):
         if not bvid:
             return None
         try:
-            result = requests.get(self.video_data_url, headers=self.headers, params={"bvid": bvid})
+            result = requests.post(self.video_data_url, headers=self.headers, json={"bvid": bvid})
         except:
             return None
 
@@ -49,7 +49,7 @@ class Bilibili(Auth):
         if not user_id:
             return None
         try:
-            result = requests.get(self.user_post_url, headers=self.headers, params={"user_id": user_id})
+            result = requests.post(self.user_post_url, headers=self.headers, json={"user_id": user_id})
         except:
             return None
 
@@ -65,7 +65,7 @@ class Bilibili(Auth):
         if not bvid:
             return None
         try:
-            result = requests.get(self.video_download_url, headers=self.headers, cookies=cookie, params={"bvid": bvid})
+            result = requests.post(self.video_download_url, headers=self.headers, cookies=cookie, json={"bvid": bvid})
         except:
             return None
 
@@ -88,8 +88,8 @@ class Bilibili(Auth):
         if not keyword:
             return None
         try:
-            result = requests.get(self.search_data_url, headers=self.headers,
-                                  params={"keyword": keyword, "search_type": search_type, "order_type": order_type,
+            result = requests.post(self.search_data_url, headers=self.headers,
+                                  json={"keyword": keyword, "search_type": search_type, "order_type": order_type,
                                           "order_sort": order_sort, "page": page})
         except:
             return None
@@ -105,7 +105,7 @@ class Bilibili(Auth):
         if not aid:
             return None
         try:
-            result = requests.get(self.comment_url, params={"aid": aid})
+            result = requests.post(self.comment_url,headers=self.headers, json={"aid": aid})
         except:
             return None
         return result.json()

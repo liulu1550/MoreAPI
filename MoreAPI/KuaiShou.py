@@ -19,12 +19,12 @@ class KuaiShou(Auth):
         :param token: 登录用户的token
         """
         super().__init__(token)
-        self.user_video_data_url = self.domain + "/api/ks/user_video_data/"
-        self.video_data_url = self.domain + "/api/ks/video_data/"
-        self.user_data_url = self.domain + "/api/ks/user_data/"
-        self.comments_list_url = self.domain + "/api/ks/comments_list/"
-        self.sub_comments_list_url = self.domain + "/api/ks/sub_comments_list/"
-        self.search_data_url = self.domain + "/api/ks/search/"
+        self.user_video_data_url = self.domain + "/api/ks/user_post"
+        self.video_data_url = self.domain + "/api/ks/aweme_detail"
+        self.user_data_url = self.domain + "/api/ks/user_data"
+        self.comments_list_url = self.domain + "/api/ks/video_comment"
+        self.sub_comments_list_url = self.domain + "/api/ks/video_sub_comment"
+        self.search_data_url = self.domain + "/api/ks/search_aweme"
 
     def user_video_data(self, user_id: str, cursor: str = None, cookie: str = None):
         """
@@ -38,8 +38,8 @@ class KuaiShou(Auth):
             return None
 
         try:
-            result = requests.get(self.user_video_data_url, headers=self.headers, cookies=cookie,
-                                  params={"user_id": user_id, "cursor": cursor})
+            result = requests.post(self.user_video_data_url, headers=self.headers, cookies=cookie,
+                                  json={"user_id": user_id, "cursor": cursor})
         except:
             return None
 
@@ -56,8 +56,8 @@ class KuaiShou(Auth):
             return None
 
         try:
-            result = requests.get(self.video_data_url, headers=self.headers, cookies=cookie,
-                                  params={"video_id": video_id})
+            result = requests.post(self.video_data_url, headers=self.headers, cookies=cookie,
+                                  json={"aweme_id": video_id})
         except:
             return None
 
@@ -74,8 +74,8 @@ class KuaiShou(Auth):
             return None
 
         try:
-            result = requests.get(self.user_data_url, headers=self.headers, cookies=cookie,
-                                  params={"user_id": user_id})
+            result = requests.post(self.user_data_url, headers=self.headers, cookies=cookie,
+                                  json={"user_id": user_id})
         except:
             return None
 
@@ -93,8 +93,8 @@ class KuaiShou(Auth):
             return None
 
         try:
-            result = requests.get(self.comments_list_url, headers=self.headers, cookies=cookie,
-                                  params={"video_id": video_id, "pcursor": pcursor})
+            result = requests.post(self.comments_list_url, headers=self.headers, cookies=cookie,
+                                  json={"aweme_id": video_id, "pcursor": pcursor})
         except:
             return None
 
@@ -113,8 +113,8 @@ class KuaiShou(Auth):
             return None
 
         try:
-            result = requests.get(self.comments_list_url, headers=self.headers, cookies=cookie,
-                                  params={"video_id": video_id, "pcursor": pcursor, "root_id": root_id})
+            result = requests.post(self.comments_list_url, headers=self.headers, cookies=cookie,
+                                  json={"aweme_id": video_id, "pcursor": pcursor, "root_id": root_id})
         except:
             return None
 
@@ -133,8 +133,8 @@ class KuaiShou(Auth):
             return None
 
         try:
-            result = requests.get(self.search_data_url, headers=self.headers, cookies=cookie,
-                                  params={"keyword": keyword, "type": type, "pcursor": pcursor})
+            result = requests.post(self.search_data_url, headers=self.headers, cookies=cookie,
+                                  params={"keyword": keyword, "pcursor": pcursor})
         except:
             return None
 

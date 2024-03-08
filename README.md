@@ -21,7 +21,7 @@ MoreAPI_PRO接口文档：[https://apifox.com/apidoc/shared-0b55c993-4634-4f70-b
 登录后进行签到可以随机获得20-50次API请求，每天00:00重置签到。签到获得的API请求次数只有请求API才会消耗。
 
 ## 售价
-`MoreAPI`经赞助者商榷，可对外授权源码，源码无加密。源码功能包含目前`MoreAPI`所有接口功能，并保证免费技术支持。`MoreAPI`源码购买地址[：点击购买](https://www.wouldmissyou.com/2023/09/27/77/)
+`MoreAPI`经赞助者商榷，可对外授权源码，源码无加密。源码功能包含目前`MoreAPI`所有接口功能，并保证免费技术支持。`MoreAPI`源码购买地址：[点击购买](https://www.wouldmissyou.com/2023/12/01/243/)
 
 ## 功能
 - 抖音API
@@ -74,7 +74,7 @@ MoreAPI_PRO接口文档：[https://apifox.com/apidoc/shared-0b55c993-4634-4f70-b
 
 博客：[https://www.wouldmissyou.com](https://www.wouldmissyou.com)
 
-源码购买地址：[https://www.wouldmissyou.com/2023/09/27/77/](https://www.wouldmissyou.com/2023/09/27/77/)
+源码购买地址：[https://www.wouldmissyou.com/2023/12/01/243/](https://www.wouldmissyou.com/2023/12/01/243/)
 
 QQ:1550422895
 
@@ -92,7 +92,7 @@ MoreAPI_PRO接口文档：[https://apifox.com/apidoc/shared-0b55c993-4634-4f70-b
 
 #### 注册账号
 
-注册地址  [http://doc.moreapi.wouldmissyou.com/api-97366881](http://doc.moreapi.wouldmissyou.com/api-97366881)
+注册地址  [https://apifox.com/apidoc/shared-0b55c993-4634-4f70-b6fc-3edf1c27344d](https://apifox.com/apidoc/shared-0b55c993-4634-4f70-b6fc-3edf1c27344d)
 
 #### 调用示例
 
@@ -102,11 +102,10 @@ pip install MoreApi
 ```
 使用SDK
 ```python
-import MoreApi
-
+import MoreAPI
 if __name__ == '__main__':
-    token = "您账号的token"  # 注册账号后登录获取token
-    douyin_api = MoreApi.DouYin(token)  # 抖音接口
+    token = "你的Token"  # 注册账号后登录获取token
+    douyin_api = MoreAPI.DouYin(token)  # 抖音接口
     video_data = douyin_api.aweme_data("7258926046223797544")  # 调用获取抖音单一视频信息API
     print(video_data)
 ```
@@ -116,7 +115,7 @@ if __name__ == '__main__':
 ```python
 import requests
 
-url = "https://moreapi.wouldmissyou.com/api/douyin/video_data/"
+url = "https://pro.moreapi.wouldmissyou.com/api/douyin/aweme_detail"
 
 params={
     "aweme_id":"7258926046223797544",  # 视频ID（与share_text必填一项）
@@ -124,13 +123,13 @@ params={
 }
 headers = {
     'Cookie': '',  # 选填
-    'Authorization': ''  # 必填 。 填写通过注册获取的token
+    'Authorization': 'Bearer xxxxxx'  # 必填 。 填写通过注册获取的token
 }
 
-response = requests.request("GET", url, headers=headers, params=params)
+response = requests.request("POST", url, headers=headers, json=params)
 
 print(response.text)
 
 ```
 
-文档地址：[http://doc.moreapi.wouldmissyou.com/](http://doc.moreapi.wouldmissyou.com/)
+文档地址：[https://apifox.com/apidoc/shared-0b55c993-4634-4f70-b6fc-3edf1c27344d](https://apifox.com/apidoc/shared-0b55c993-4634-4f70-b6fc-3edf1c27344d)

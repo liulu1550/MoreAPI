@@ -19,12 +19,12 @@ class XHS(Auth):
         :param token: 登录用户的token
         """
         super().__init__(token)
-        self.get_note_by_id_url = self.domain + "/api/xhs/get_note_by_id/"
-        self.get_user_info_url = self.domain + "/api/xhs/get_user_info/"
-        self.get_user_notes_url = self.domain + "/api/xhs/get_user_notes/"
-        self.get_note_comments_url = self.domain + "/api/xhs/get_note_comments/"
-        self.get_note_sub_comments_url = self.domain + "/api/xhs/get_note_sub_comments/"
-        self.search_note_by_keyword_url = self.domain + "/api/xhs/search_note_by_keyword/"
+        self.get_note_by_id_url = self.domain + "/api/xhs/note_detail"
+        self.get_user_info_url = self.domain + "/api/xhs/user_detail"
+        self.get_user_notes_url = self.domain + "/api/xhs/user_post"
+        self.get_note_comments_url = self.domain + "/api/xhs/note_comment"
+        self.get_note_sub_comments_url = self.domain + "/api/xhs/note_sub_comment"
+        self.search_note_by_keyword_url = self.domain + "/api/xhs/search_note"
 
     def get_note_by_id(self, note_id: str, cookie: str = None):
         """
@@ -36,8 +36,8 @@ class XHS(Auth):
         if not note_id:
             return None
         try:
-            result = requests.get(self.get_note_by_id_url, headers=self.headers, cookies=cookie,
-                                  params={"note_id": note_id})
+            result = requests.post(self.get_note_by_id_url, headers=self.headers, cookies=cookie,
+                                  json={"note_id": note_id})
         except:
             return None
         return result.json()
@@ -52,8 +52,8 @@ class XHS(Auth):
         if not user_id:
             return None
         try:
-            result = requests.get(self.get_user_info_url, headers=self.headers, cookies=cookie,
-                                  params={"user_id": user_id})
+            result = requests.post(self.get_user_info_url, headers=self.headers, cookies=cookie,
+                                  json={"user_id": user_id})
         except:
             return None
         return result.json()
@@ -70,8 +70,8 @@ class XHS(Auth):
         if not user_id:
             return None
         try:
-            result = requests.get(self.get_user_notes_url, headers=self.headers, cookies=cookie,
-                                  params={"user_id": user_id, "cursor": cursor, "type": type})
+            result = requests.post(self.get_user_notes_url, headers=self.headers, cookies=cookie,
+                                  json={"user_id": user_id, "cursor": cursor, "type": type})
         except:
             return None
         return result.json()
@@ -87,8 +87,8 @@ class XHS(Auth):
         if not note_id:
             return None
         try:
-            result = requests.get(self.get_note_comments_url, headers=self.headers, cookies=cookie,
-                                  params={"note_id": note_id, "cursor": cursor})
+            result = requests.post(self.get_note_comments_url, headers=self.headers, cookies=cookie,
+                                  json={"note_id": note_id, "cursor": cursor})
         except:
             return None
         return result.json()
@@ -108,8 +108,8 @@ class XHS(Auth):
         if not note_id or not note_id:
             return None
         try:
-            result = requests.get(self.get_note_sub_comments_url, headers=self.headers, cookies=cookie,
-                                  params={"note_id": note_id, "root_comment_id": root_comment_id, "cursor": cursor,
+            result = requests.post(self.get_note_sub_comments_url, headers=self.headers, cookies=cookie,
+                                  json={"note_id": note_id, "root_comment_id": root_comment_id, "cursor": cursor,
                                           "num": num})
         except:
             return None
@@ -130,8 +130,8 @@ class XHS(Auth):
         if not keyword:
             return None
         try:
-            result = requests.get(self.search_note_by_keyword_url, headers=self.headers, cookies=cookie,
-                                  params={"keyword": keyword, "page": page, "page_size": page_size,
+            result = requests.post(self.search_note_by_keyword_url, headers=self.headers, cookies=cookie,
+                                  json={"keyword": keyword, "page": page, "page_size": page_size,
                                           "sort": sort, "note_type": note_type})
         except:
             return None

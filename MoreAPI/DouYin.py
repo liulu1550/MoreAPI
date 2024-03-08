@@ -11,12 +11,12 @@ class DouYin(Auth):
         :param token: 登录用户的token
         """
         super().__init__(token)
-        self.video_data_url = self.domain + "/api/douyin/video_data/"
-        self.user_data_url = self.domain + "/api/douyin/user_data/"
-        self.user_video_data_url = self.domain + "/api/douyin/user_video_data/"
-        self.live_room_data_url = self.domain + "/api/douyin/live_room/"
-        self.video_comment_url = self.domain + "/api/douyin/video_comment/"
-        self.search_data_url = self.domain + "/api/douyin/search/"
+        self.video_data_url = self.domain + "/api/douyin/aweme_detail"
+        self.user_data_url = self.domain + "/api/douyin/user_data"
+        self.user_video_data_url = self.domain + "/api/douyin/user_post_v4"
+        self.live_room_data_url = self.domain + "/api/douyin/live_room_data"
+        self.video_comment_url = self.domain + "/api/douyin/video_comment_v2"
+        self.search_data_url = self.domain + "/api/douyin/general_search"
 
     def aweme_data(self, aweme_id: str, cookie: str = None):
         """
@@ -27,8 +27,8 @@ class DouYin(Auth):
         if not aweme_id:
             return None
         try:
-            result = requests.get(url=self.video_data_url, headers=self.headers, cookies=cookie,
-                                  params={"aweme_id": aweme_id})
+            data = {"aweme_id": aweme_id}
+            result = requests.post(url=self.video_data_url, headers=self.headers, cookies=cookie, json=data)
         except:
             return None
 
@@ -43,9 +43,9 @@ class DouYin(Auth):
         """
         if not sec_user_id:
             return None
+        data = {"sec_user_id": sec_user_id}
         try:
-            result = requests.get(url=self.user_data_url, headers=self.headers, cookies=cookie,
-                                  params={"sec_user_id": sec_user_id})
+            result = requests.post(url=self.user_data_url, headers=self.headers, cookies=cookie, json=data)
         except:
             return None
         return result.json()
@@ -62,8 +62,8 @@ class DouYin(Auth):
         if not sec_user_id:
             return None
         try:
-            result = requests.get(url=self.user_video_data_url, headers=self.headers, cookies=cookie,
-                                  params={"sec_user_id": sec_user_id, "count": count, "max_cursor": max_cursor})
+            result = requests.post(url=self.user_video_data_url, headers=self.headers, cookies=cookie,
+                                  json={"sec_user_id": sec_user_id, "count": count, "max_cursor": max_cursor})
         except:
             return None
         return result.json()
@@ -78,8 +78,8 @@ class DouYin(Auth):
         if not web_rid:
             return None
         try:
-            result = requests.get(url=self.live_room_data_url, headers=self.headers, cookies=cookie,
-                                  params={"web_rid": web_rid})
+            result = requests.post(url=self.live_room_data_url, headers=self.headers, cookies=cookie,
+                                  json={"web_rid": web_rid})
         except:
             return None
         return result.json()
@@ -96,8 +96,8 @@ class DouYin(Auth):
         if not aweme_id:
             return None
         try:
-            result = requests.get(url=self.video_comment_url, headers=self.headers, cookies=cookie,
-                                  params={"aweme_id": aweme_id, "cursor": cursor, "count": count})
+            result = requests.post(url=self.video_comment_url, headers=self.headers, cookies=cookie,
+                                  json={"aweme_id": aweme_id, "cursor": cursor, "count": count})
         except:
             return None
         return result.json()
@@ -118,8 +118,8 @@ class DouYin(Auth):
         if not keyword:
             return None
         try:
-            result = requests.get(url=self.search_data_url, headers=self.headers, cookies=cookie,
-                                  params={"keyword": keyword, "search_type": search_type, "sort_type": sort_type,
+            result = requests.post(url=self.search_data_url, headers=self.headers, cookies=cookie,
+                                  json={"keyword": keyword, "sort_type": sort_type,
                                           "publish_time": publish_time, "offset": offset, "count": count})
         except:
             return None
