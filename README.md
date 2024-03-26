@@ -83,7 +83,9 @@ EMAIL: wouldmissyou@163.com
 MoreAPI接口文档： [http://doc.moreapi.wouldmissyou.com/](http://doc.moreapi.wouldmissyou.com/)
 
 MoreAPI_PRO接口文档：[https://apifox.com/apidoc/shared-0b55c993-4634-4f70-b6fc-3edf1c27344d](https://apifox.com/apidoc/shared-0b55c993-4634-4f70-b6fc-3edf1c27344d)
+微信：
 
+![contact_me_qr.png](https://api.apifox.com/api/v1/projects/3641880/resources/422815/image-preview)
 ## Plans/更新计划
 
 如果你有好的计划请联系QQ或到博客留言。
