@@ -1,4 +1,3 @@
-
 from MoreAPI.DouYin import DouYin
 
 from MoreAPI.KuaiShou import KuaiShou
