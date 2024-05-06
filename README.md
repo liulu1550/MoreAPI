@@ -24,7 +24,7 @@ MoreAPI_PRO接口文档：[https://apifox.com/apidoc/shared-0b55c993-4634-4f70-b
 `MoreAPI`经赞助者商榷，可对外授权源码，源码无加密。源码功能包含目前`MoreAPI`所有接口功能，并保证免费技术支持。`MoreAPI`源码购买地址：[点击购买](https://www.wouldmissyou.com/2023/12/01/243/)
 
 ## 功能
-- 抖音API
+- 某音API
   1. 获取视频详情
   2. 获取用户信息
   3. 获取用户主页发布
