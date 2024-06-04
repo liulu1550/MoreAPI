@@ -6,9 +6,7 @@
 
 如果您有任何建议或者需求，请联系站长，更多的功能正在开发中，敬请期待！
 
-文档地址：[http://doc.moreapi.wouldmissyou.com/](http://doc.moreapi.wouldmissyou.com/)
-
-MoreAPI_PRO接口文档：[https://apifox.com/apidoc/shared-0b55c993-4634-4f70-b6fc-3edf1c27344d](https://apifox.com/apidoc/shared-0b55c993-4634-4f70-b6fc-3edf1c27344d)
+文档地址：[http://pro.doc.moreapi.wouldmissyou.com/](http://pro.doc.moreapi.wouldmissyou.com/)
 
 ## Authorization/鉴权
 
@@ -80,9 +78,8 @@ QQ:1550422895
 
 EMAIL: wouldmissyou@163.com
 
-MoreAPI接口文档： [http://doc.moreapi.wouldmissyou.com/](http://doc.moreapi.wouldmissyou.com/)
+MoreAPI接口文档： [http://pro.doc.moreapi.wouldmissyou.com/](http://pro.doc.moreapi.wouldmissyou.com/)
 
-MoreAPI_PRO接口文档：[https://apifox.com/apidoc/shared-0b55c993-4634-4f70-b6fc-3edf1c27344d](https://apifox.com/apidoc/shared-0b55c993-4634-4f70-b6fc-3edf1c27344d)
 微信：
 
 ![contact_me_qr.png](https://api.apifox.com/api/v1/projects/3641880/resources/422815/image-preview)
