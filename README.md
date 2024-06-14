@@ -1,6 +1,6 @@
 ## Description/简介
 `MoreAPI_Pro`版本已发布！增加抖音6神算法！某红薯发布接口已推出！
-`MoreAPI`是抖音/快手/小红书/哔哩哔哩/YouTube/微博weibo/tiktok等各视频平台非官方的RESTful API平台。
+`MoreAPI`是抖音/快手/小红书/哔哩哔哩/YouTube/微博weibo/tiktok/Lemon8等各视频平台非官方的RESTful API平台。
 
 `MoreAPI`提供的API只能获取公开数据，即任何人都可以通过浏览器及APP等访问相关服务以获取它们。
 
