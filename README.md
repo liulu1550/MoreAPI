@@ -1,5 +1,5 @@
 ## Description/简介
-`MoreAPI_Pro`版本已发布！增加抖音6神算法！某红薯发布接口已推出！
+
 `MoreAPI`是抖音/快手/小红书/哔哩哔哩/YouTube/微博weibo/tiktok/Lemon8等各视频平台非官方的RESTful API平台。
 
 `MoreAPI`提供的API只能获取公开数据，即任何人都可以通过浏览器及APP等访问相关服务以获取它们。
@@ -121,7 +121,6 @@ params={
     "share_text": ""  # APP端视频分享文案或短连接（与aweme_id必填一项） 例：4.38 KJi:/ U@y.TY 01/11 生活可以忙碌疲惫，但心态要简单快乐！ https://v.douyin.com/iRJwHFGy/ 复制此链接，打开Dou音搜索，直接观看视频！
 }
 headers = {
-    'Cookie': '',  # 选填
     'Authorization': 'Bearer xxxxxx'  # 必填 。 填写通过注册获取的token
 }
 
