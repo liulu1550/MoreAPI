@@ -1,6 +1,6 @@
 ## Description/简介
 
-`MoreAPI`是抖音/快手/小红书/哔哩哔哩/YouTube/微博weibo/tiktok/Lemon8等各视频平台非官方的RESTful API平台。
+`MoreAPI`是抖音/快手/小红书/哔哩哔哩/YouTube/微博weibo/tiktok/Lemon8(海外版小红书)等各视频平台非官方的RESTful API平台。
 
 `MoreAPI`提供的API只能获取公开数据，即任何人都可以通过浏览器及APP等访问相关服务以获取它们。
 
@@ -15,8 +15,6 @@
 ## Announcement/公告
 
 `MoreAPI`将使用**免费以及赞助**的形式运行。你可以通过利用 `MoreAPI`编写开源软件并且提交至GitHub，我们会在审核通过后赠送你一定的API请求次数。或者通过赞助本站，本站根据你的赞助金额赠送你一定的API请求次数。
-
-登录后进行签到可以随机获得20-50次API请求，每天00:00重置签到。签到获得的API请求次数只有请求API才会消耗。
 
 ## 售价
 `MoreAPI`经赞助者商榷，可对外授权源码，源码无加密。源码功能包含目前`MoreAPI`所有接口功能，并保证免费技术支持。`MoreAPI`源码购买地址：[点击购买](https://www.wouldmissyou.com/2023/12/01/243/)
