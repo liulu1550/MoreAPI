@@ -8,10 +8,5 @@ class Auth:
         self.domain = domain  # 域名/domain
         self.headers = {'Authorization': f'Bearer {token}'}
 
-    # 签到
-    def daily_check_in(self):
-        url = f'{self.domain}/api/auth/daily_check_in'
-        result = requests.get(url=url, headers=self.headers)
-        return result.json()
 
 
