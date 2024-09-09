@@ -73,7 +73,6 @@
 
 源码购买地址：[https://www.wouldmissyou.com/2023/12/01/243/](https://www.wouldmissyou.com/2023/12/01/243/)
 
-QQ:1550422895
 
 EMAIL: wouldmissyou@163.com
 
@@ -84,7 +83,7 @@ MoreAPI接口文档： [http://pro.doc.moreapi.wouldmissyou.com/](http://pro.doc
 ![contact_me_qr.png](https://api.apifox.com/api/v1/projects/3641880/resources/422815/image-preview)
 ## Plans/更新计划
 
-如果你有好的计划请联系QQ或到博客留言。
+如果你有好的计划请联系微信或到博客留言。
 
 ## User/使用方法
 
