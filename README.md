@@ -8,7 +8,7 @@
 
 
 
-文档地址：[http://pro.doc.moreapi.wouldmissyou.com/](http://pro.doc.moreapi.wouldmissyou.com/)
+文档地址：[https://ziopqu50k5.apifox.cn/](https://ziopqu50k5.apifox.cn/)
 
 ## Authorization/鉴权
 
@@ -82,7 +82,7 @@
 
 EMAIL: wouldmissyou@163.com
 
-MoreAPI接口文档： [http://pro.doc.moreapi.wouldmissyou.com/](http://pro.doc.moreapi.wouldmissyou.com/)
+MoreAPI接口文档： [https://ziopqu50k5.apifox.cn/](https://ziopqu50k5.apifox.cn/)
 
 微信：
 
@@ -95,7 +95,7 @@ MoreAPI接口文档： [http://pro.doc.moreapi.wouldmissyou.com/](http://pro.doc
 
 #### 注册账号
 
-注册地址  [https://apifox.com/apidoc/shared-0b55c993-4634-4f70-b6fc-3edf1c27344d](https://apifox.com/apidoc/shared-0b55c993-4634-4f70-b6fc-3edf1c27344d)
+注册地址  [https://ziopqu50k5.apifox.cn/](https://ziopqu50k5.apifox.cn/)
 
 #### 调用示例
 
@@ -118,7 +118,7 @@ if __name__ == '__main__':
 ```python
 import requests
 
-url = "https://pro.moreapi.wouldmissyou.com/api/douyin/aweme_detail"
+url = "http://pro.moreapi.wouldmissyou.com/api/douyin/aweme_detail"
 
 params={
     "aweme_id":"7258926046223797544",  # 视频ID（与share_text必填一项）
@@ -134,4 +134,4 @@ print(response.text)
 
 ```
 
-文档地址：[https://apifox.com/apidoc/shared-0b55c993-4634-4f70-b6fc-3edf1c27344d](https://apifox.com/apidoc/shared-0b55c993-4634-4f70-b6fc-3edf1c27344d)
+文档地址：[http://apifox.com/apidoc/shared-0b55c993-4634-4f70-b6fc-3edf1c27344d](https://apifox.com/apidoc/shared-0b55c993-4634-4f70-b6fc-3edf1c27344d)
