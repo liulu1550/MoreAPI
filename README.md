@@ -97,7 +97,7 @@ MoreAPI接口文档： [https://ziopqu50k5.apifox.cn/](https://ziopqu50k5.apifox
 
 #### 注册账号
 
-注册地址  [https://ziopqu50k5.apifox.cn/](https://ziopqu50k5.apifox.cn/)
+注册地址  [https://ziopqu50k5.apifox.cn/5808795m0](https://ziopqu50k5.apifox.cn/5808795m0)
 
 #### 调用示例
 
