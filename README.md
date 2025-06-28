@@ -122,7 +122,7 @@ if __name__ == '__main__':
 ```python
 import requests
 
-url = "http://pro.moreapi.wouldmissyou.com/api/douyin/aweme_detail"
+url = "http://api.moreapi.cn/api/douyin/aweme_detail"
 
 params={
     "aweme_id":"7258926046223797544",  # 视频ID（与share_text必填一项）

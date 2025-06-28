@@ -1,111 +1,138 @@
-#!/usr/local/bin/python3
-# -*- coding: utf-8 -*-
-
-"""
-@Project : MoreAPI
-@File    : Bilibili.py
-@Author  : MoreCoding多点部落
-@Time    : 2023/9/14 11:43 AM
-"""
-import requests
-
-from MoreAPI.Auth import Auth
+from .Auth import Auth
+from typing import Optional, Dict, Any, Union
 
 
 class Bilibili(Auth):
-    def __init__(self, token: str):
-        """
-        初始化
-        :param token: 登录用户的token
-        """
-        super().__init__(token)
-        self.video_data_url = self.domain + "/api/bilibili/video_data"
-        self.video_download_url = self.domain + "/api/bilibili/video_download"
-        self.user_post_url = self.domain + "/api/bilibili/user_post"
-        self.search_data_url = self.domain + "/api/bilibili/search"
-        self.comment_url = self.domain + "/api/bilibili/comments"
+    """哔哩哔哩API类 - 严格按照接口文档实现所有接口"""
 
-    def video_data(self, bvid: str):
-        """
-        获取视频信息
-        :param bvid: BV 号
-        :return:
-        """
-        if not bvid:
-            return None
-        try:
-            result = requests.post(self.video_data_url, headers=self.headers, json={"bvid": bvid})
-        except:
-            return None
+    def __init__(self, token: str, domain: str = "http://api.moreapi.cn"):
+        super().__init__(token, domain)
 
-        return result.json()
+    def video_data(self, bvid: Optional[str] = None, avid: Optional[str] = None,
+                   proxy: Union[str, bool, None] = None) -> Dict[str, Any]:
+        """获取视频详情 - bvid和avid必填一项"""
+        data = {
+            "bvid": bvid,
+            "avid": avid,
+            "proxy": proxy
+        }
+        return self._make_request("/api/bilibili/video_data", data)
 
-    def user_post(self, user_id: str):
-        """
-        获取视频信息
-        :param user_id: 用户ID
-        :return:
-        """
-        if not user_id:
-            return None
-        try:
-            result = requests.post(self.user_post_url, headers=self.headers, json={"user_id": user_id})
-        except:
-            return None
+    def video_data_v2(self, bvid: Optional[str] = None, avid: Optional[str] = None,
+                      proxy: Union[str, bool, None] = None) -> Dict[str, Any]:
+        """获取视频详情v2 - bvid和avid必填一项"""
+        data = {
+            "bvid": bvid,
+            "avid": avid,
+            "proxy": proxy
+        }
+        return self._make_request("/api/bilibili/video_data_v2", data)
 
-        return result.json()
+    def comments(self, bvid: Optional[str] = None, avid: Optional[str] = None,
+                 pn: int = 1, ps: int = 20, sort: str = "0",
+                 proxy: Union[str, bool, None] = None) -> Dict[str, Any]:
+        """获取视频评论 - bvid和avid必填一项"""
+        data = {
+            "bvid": bvid,
+            "avid": avid,
+            "pn": pn,
+            "ps": ps,
+            "sort": sort,
+            "proxy": proxy
+        }
+        return self._make_request("/api/bilibili/comments", data)
 
-    def video_download(self, bvid: str, cookie: str = None):
-        """
-        获取视频下载链接
-        :param bvid: BV 号
-        :param cookie: 个人cookie
-        :return:
-        """
-        if not bvid:
-            return None
-        try:
-            result = requests.post(self.video_download_url, headers=self.headers, cookies=cookie, json={"bvid": bvid})
-        except:
-            return None
+    def video_download(self, bvid: Optional[str] = None, avid: Optional[str] = None,
+                       cid: Optional[str] = None, proxy: Union[str, bool, None] = None,
+                       cookie: Optional[str] = None) -> Dict[str, Any]:
+        """视频下载链接获取 - bvid和avid必填一项"""
+        data = {
+            "bvid": bvid,
+            "avid": avid,
+            "cid": cid,
+            "proxy": proxy
+        }
+        headers = {"Cookie": cookie} if cookie else None
+        return self._make_request("/api/bilibili/video_download", data, headers)
 
-        return result.json()
+    def video_download_v2(self, bvid: Optional[str] = None, avid: Optional[str] = None,
+                          cid: Optional[str] = None, proxy: Union[str, bool, None] = None,
+                          cookie: Optional[str] = None) -> Dict[str, Any]:
+        """视频下载链接获取v2 - bvid和avid必填一项"""
+        data = {
+            "bvid": bvid,
+            "avid": avid,
+            "cid": cid,
+            "proxy": proxy
+        }
+        headers = {"Cookie": cookie} if cookie else None
+        return self._make_request("/api/bilibili/video_download_v2", data, headers)
 
-    def search_data(self, keyword: str, search_type: str = None, order_type: str = None, order_sort: str = None,
-                    page: str = None):
-        """
-        搜索数据
-        :param keyword: 关键词
-        :param search_type: VIDEO:视频，BANGUMI:番剧，FT:影视, LIVE : 直播, ARTICLE : 专栏, TOPIC : 话题, USER : 用户, LIVEUSER : 直播间用户  (默认为VIDEO)
-        :param order_type: 排序分类类型：search_type为VIDEO时：TOTALRANK：综合，CLICK：最多点击，PUBDATE：最新发布，DM：最多弹幕, STOW : 最多收藏， SCORES : 最多评论。
-                                        search_type为USER时：FANS : 按照粉丝数量排序， LEVEL : 按照等级排序。
-                                        search_type为LIVE时：NEWLIVE 最新开播， ONLINE 综合排序。
-                                        search_type为ARTICLE时：TOTALRANK : 综合排序， CLICK : 最多点击， PUBDATE : 最新发布， ATTENTION : 最多喜欢， SCORES : 最多评论
-        :param order_sort: 由高到低：0 由低到高：1
-        :param page: 页码
-        :return:
-        """
-        if not keyword:
-            return None
-        try:
-            result = requests.post(self.search_data_url, headers=self.headers,
-                                  json={"keyword": keyword, "search_type": search_type, "order_type": order_type,
-                                          "order_sort": order_sort, "page": page})
-        except:
-            return None
+    def user_post(self, uid: str, pn: int = 1, ps: int = 30,
+                  proxy: Union[str, bool, None] = None,
+                  cookie: Optional[str] = None) -> Dict[str, Any]:
+        """获取用户投稿"""
+        data = {
+            "uid": uid,
+            "pn": pn,
+            "ps": ps,
+            "proxy": proxy
+        }
+        headers = {"Cookie": cookie} if cookie else None
+        return self._make_request("/api/bilibili/user_post", data, headers)
 
-        return result.json()
+    def user_post_v2(self, uid: str, pn: int = 1, ps: int = 30,
+                     proxy: Union[str, bool, None] = None,
+                     cookie: Optional[str] = None) -> Dict[str, Any]:
+        """获取用户投稿v2"""
+        data = {
+            "uid": uid,
+            "pn": pn,
+            "ps": ps,
+            "proxy": proxy
+        }
+        headers = {"Cookie": cookie} if cookie else None
+        return self._make_request("/api/bilibili/user_post_v2", data, headers)
 
-    def get_comments(self, aid: int):
-        """
-        获取视频所有评论
-        :param aid: 视频的AID
-        :return:
-        """
-        if not aid:
-            return None
-        try:
-            result = requests.post(self.comment_url,headers=self.headers, json={"aid": aid})
-        except:
-            return None
-        return result.json()
+    def user_info(self, uid: str, proxy: Union[str, bool, None] = None,
+                  cookie: Optional[str] = None) -> Dict[str, Any]:
+        """获取用户信息"""
+        data = {
+            "uid": uid,
+            "proxy": proxy
+        }
+        headers = {"Cookie": cookie} if cookie else None
+        return self._make_request("/api/bilibili/user_info", data, headers)
+
+    def user_videos(self, uid: str, keyword: str = "", tid: str = "0", 
+                    order: str = "pubdate", pn: int = 1, ps: int = 30,
+                    proxy: Union[str, bool, None] = None, 
+                    cookie: Optional[str] = None) -> Dict[str, Any]:
+        """获取用户投稿视频"""
+        data = {
+            "uid": uid,
+            "keyword": keyword,
+            "tid": tid,
+            "order": order,
+            "pn": pn,
+            "ps": ps,
+            "proxy": proxy
+        }
+        headers = {"Cookie": cookie} if cookie else None
+        return self._make_request("/api/bilibili/user_videos", data, headers)
+
+    def search(self, keyword: str, search_type: str = "VIDEO", 
+               order_type: str = "TOTALRANK", order_sort: str = "0",
+               time_range: int = -1, page: int = 1, 
+               proxy: Union[str, bool, None] = None) -> Dict[str, Any]:
+        """搜索数据"""
+        data = {
+            "keyword": keyword,
+            "search_type": search_type,
+            "order_type": order_type,
+            "order_sort": order_sort,
+            "time_range": time_range,
+            "page": page,
+            "proxy": proxy
+        }
+        return self._make_request("/api/bilibili/search", data) 

@@ -1,138 +1,307 @@
-#!/usr/local/bin/python3
-# -*- coding: utf-8 -*-
-
-"""
-@Project : MoreAPI
-@File    : XHS.py
-@Author  : MoreCoding多点部落
-@Time    : 2023/9/14 11:11 AM
-"""
-import requests
-
-from MoreAPI.Auth import Auth
+from .Auth import Auth
+from typing import Optional, Dict, Any, Union
 
 
 class XHS(Auth):
-    def __init__(self, token: str):
-        """
-        初始化
-        :param token: 登录用户的token
-        """
-        super().__init__(token)
-        self.get_note_by_id_url = self.domain + "/api/xhs/note_detail"
-        self.get_user_info_url = self.domain + "/api/xhs/user_detail"
-        self.get_user_notes_url = self.domain + "/api/xhs/user_post"
-        self.get_note_comments_url = self.domain + "/api/xhs/note_comment"
-        self.get_note_sub_comments_url = self.domain + "/api/xhs/note_sub_comment"
-        self.search_note_by_keyword_url = self.domain + "/api/xhs/search_note"
+    """小红书API类 - 严格按照接口文档实现所有接口"""
 
-    def get_note_by_id(self, note_id: str, cookie: str = None):
-        """
-        获取笔记详情
-        :param note_id: 笔记ID
-        :param cookie: 个人cookie
-        :return:
-        """
-        if not note_id:
-            return None
-        try:
-            result = requests.post(self.get_note_by_id_url, headers=self.headers, cookies=cookie,
-                                  json={"note_id": note_id})
-        except:
-            return None
-        return result.json()
+    def __init__(self, token: str, domain: str = "http://api.moreapi.cn"):
+        super().__init__(token, domain)
 
-    def get_user_info(self, user_id: str, cookie: str = None):
-        """
-        获取个人信息
-        :param user_id: 作者ID
-        :param cookie:个人cookie
-        :return:
-        """
-        if not user_id:
-            return None
-        try:
-            result = requests.post(self.get_user_info_url, headers=self.headers, cookies=cookie,
-                                  json={"user_id": user_id})
-        except:
-            return None
-        return result.json()
+    # ===== 笔记相关接口 =====
+    def note_detail(self, note_id: Optional[str] = None, xsec_token: Optional[str] = None,
+                    share_text: Optional[str] = None, proxy: Optional[str] = None,
+                    cookie: str = "") -> Dict[str, Any]:
+        """获取笔记详情 - 需要Cookie头，note_id+xsec_token或share_text必填"""
+        data = {
+            "note_id": note_id,
+            "xsec_token": xsec_token,
+            "share_text": share_text,
+            "proxy": proxy
+        }
+        headers = {"Cookie": cookie}
+        return self._make_request("/api/xhs/note_detail", data, headers)
 
-    def get_user_note(self, user_id: str, cursor: str = None, type: str = None, cookie: str = None):
-        """
-        获取用户笔记
-        :param user_id: 作者ID
-        :param cursor: 下一页参数
-        :param type: 类型。默认为空获取用户发布的笔记。（collect:获取用户收藏笔记，like:获取用户点赞笔记）
-        :param cookie: 个人cookie
-        :return:
-        """
-        if not user_id:
-            return None
-        try:
-            result = requests.post(self.get_user_notes_url, headers=self.headers, cookies=cookie,
-                                  json={"user_id": user_id, "cursor": cursor, "type": type})
-        except:
-            return None
-        return result.json()
+    def note_detail_v2(self, note_id: Optional[str] = None, xsec_token: Optional[str] = None,
+                       share_text: Optional[str] = None, proxy: Optional[str] = None,
+                       cookie: Optional[str] = None) -> Dict[str, Any]:
+        """获取笔记详情v2 - Cookie可选，note_id+xsec_token或share_text必填"""
+        data = {
+            "note_id": note_id,
+            "xsec_token": xsec_token,
+            "share_text": share_text,
+            "proxy": proxy
+        }
+        headers = {"Cookie": cookie} if cookie else None
+        return self._make_request("/api/xhs/note_detail_v2", data, headers)
 
-    def get_note_comments(self, note_id: str, cursor: str = None, cookie: str = None):
-        """
-        获取笔记评论
-        :param note_id: 笔记ID
-        :param cursor: 页码参数
-        :param cookie: 个人cookie
-        :return:
-        """
-        if not note_id:
-            return None
-        try:
-            result = requests.post(self.get_note_comments_url, headers=self.headers, cookies=cookie,
-                                  json={"note_id": note_id, "cursor": cursor})
-        except:
-            return None
-        return result.json()
+    def note_detail_v3(self, note_id: Optional[str] = None, share_text: Optional[str] = None,
+                       proxy: Optional[str] = None, cookie: str = "") -> Dict[str, Any]:
+        """获取笔记详情v3 - 需要Cookie头，note_id或share_text必填一项"""
+        data = {
+            "note_id": note_id,
+            "share_text": share_text,
+            "proxy": proxy
+        }
+        headers = {"Cookie": cookie}
+        return self._make_request("/api/xhs/note_detail_v3", data, headers)
 
-    def get_note_sub_comments(self, note_id: str, root_comment_id: str, cursor: str = None, num: str = "10",
-                              cookie: str = None):
-        """
-        获取笔记下评论的子评论
-        :param note_id: 笔记ID
-        :param root_comment_id: 父评论ID
-        :param cursor: 页码参数
-        :param num: 当前页条数（默认10）
-        :param cookie: 个人cookie
-        :return:
-        """
+    def note_comment(self, note_id: str, cursor: str = "", proxy: Optional[str] = None,
+                     cookie: Optional[str] = None) -> Dict[str, Any]:
+        """获取笔记父级评论"""
+        data = {
+            "note_id": note_id,
+            "cursor": cursor,
+            "proxy": proxy
+        }
+        headers = {"Cookie": cookie} if cookie else None
+        return self._make_request("/api/xhs/note_comment", data, headers)
 
-        if not note_id or not note_id:
-            return None
-        try:
-            result = requests.post(self.get_note_sub_comments_url, headers=self.headers, cookies=cookie,
-                                  json={"note_id": note_id, "root_comment_id": root_comment_id, "cursor": cursor,
-                                          "num": num})
-        except:
-            return None
-        return result.json()
+    def note_sub_comment(self, note_id: str, root_comment_id: str, cursor: str = "",
+                         proxy: Optional[str] = None, cookie: Optional[str] = None) -> Dict[str, Any]:
+        """获取笔记子级评论"""
+        data = {
+            "note_id": note_id,
+            "root_comment_id": root_comment_id,
+            "cursor": cursor,
+            "proxy": proxy
+        }
+        headers = {"Cookie": cookie} if cookie else None
+        return self._make_request("/api/xhs/note_sub_comment", data, headers)
 
-    def search_note_by_keyword(self, keyword: str, page: int = 1, page_size: int = 20, sort: str = "general",
-                               note_type: str = "video", cookie: str = None):
-        """
-        搜索笔记
-        :param keyword: 关键词
-        :param page: 页码（默认1）
-        :param page_size: 每页条数（默认20）
-        :param sort: 排序方式。general:默认, hot:最热, new:最新
-        :param note_type: 搜索结果类型（默认all）。all:全部,video:视频, image:图集
-        :param cookie: 个人cookie
-        :return:
-        """
-        if not keyword:
-            return None
-        try:
-            result = requests.post(self.search_note_by_keyword_url, headers=self.headers, cookies=cookie,
-                                  json={"keyword": keyword, "page": page, "page_size": page_size,
-                                          "sort": sort, "note_type": note_type})
-        except:
-            return None
-        return result.json()
+    def share_code(self, note_id: str, proxy: Optional[str] = None,
+                   cookie: Optional[str] = None) -> Dict[str, Any]:
+        """获取笔记分享code"""
+        data = {
+            "note_id": note_id,
+            "proxy": proxy
+        }
+        headers = {"Cookie": cookie} if cookie else None
+        return self._make_request("/api/xhs/share_code", data, headers)
+
+    def short_link(self, note_id: str, proxy: Optional[str] = None,
+                   cookie: Optional[str] = None) -> Dict[str, Any]:
+        """获取笔记分享短链"""
+        data = {
+            "note_id": note_id,
+            "proxy": proxy
+        }
+        headers = {"Cookie": cookie} if cookie else None
+        return self._make_request("/api/xhs/short_link", data, headers)
+
+    # ===== 用户相关接口 =====
+    def user_detail(self, user_id: str, proxy: Union[str, bool, None] = None,
+                    cookie: Optional[str] = None) -> Dict[str, Any]:
+        """获取用户详情"""
+        data = {
+            "user_id": user_id,
+            "proxy": proxy
+        }
+        headers = {"Cookie": cookie} if cookie else None
+        return self._make_request("/api/xhs/user_detail", data, headers)
+
+    def user_detail_v2(self, user_id: str, proxy: Union[str, bool, None] = None,
+                       cookie: Optional[str] = None) -> Dict[str, Any]:
+        """获取用户详情v2"""
+        data = {
+            "user_id": user_id,
+            "proxy": proxy
+        }
+        headers = {"Cookie": cookie} if cookie else None
+        return self._make_request("/api/xhs/user_detail_v2", data, headers)
+
+    def user_post(self, user_id: str, cursor: str = "", proxy: Optional[str] = None,
+                  cookie: Optional[str] = None) -> Dict[str, Any]:
+        """获取用户主页发布"""
+        data = {
+            "user_id": user_id,
+            "cursor": cursor,
+            "proxy": proxy
+        }
+        headers = {"Cookie": cookie} if cookie else None
+        return self._make_request("/api/xhs/user_post", data, headers)
+
+    # ===== 搜索相关接口 =====
+    def search_note(self, keyword: str, page: int = 1, page_size: int = 15,
+                    sort_by: str = "general", note_type: str = "0",
+                    proxy: Optional[str] = None, cookie: Optional[str] = None) -> Dict[str, Any]:
+        """搜索笔记"""
+        data = {
+            "keyword": keyword,
+            "page": page,
+            "page_size": page_size,
+            "sort_by": sort_by,
+            "note_type": note_type,
+            "proxy": proxy
+        }
+        headers = {"Cookie": cookie} if cookie else None
+        return self._make_request("/api/xhs/search_note", data, headers)
+
+    def search_user(self, keyword: str, page: int = 1, page_size: int = 15,
+                    proxy: Optional[str] = None, cookie: Optional[str] = None) -> Dict[str, Any]:
+        """搜索用户"""
+        data = {
+            "keyword": keyword,
+            "page": page,
+            "page_size": page_size,
+            "proxy": proxy
+        }
+        headers = {"Cookie": cookie} if cookie else None
+        return self._make_request("/api/xhs/search_user", data, headers)
+
+    def search_one_box(self, xhs_id: str, proxy: Optional[str] = None,
+                       cookie: Optional[str] = None) -> Dict[str, Any]:
+        """根据小红书号搜索用户"""
+        data = {
+            "xhs_id": xhs_id,
+            "proxy": proxy
+        }
+        headers = {"Cookie": cookie} if cookie else None
+        return self._make_request("/api/xhs/search_one_box", data, headers)
+
+    def search_topic(self, keyword: str, proxy: Optional[str] = None,
+                     cookie: Optional[str] = None) -> Dict[str, Any]:
+        """搜索话题"""
+        data = {
+            "keyword": keyword,
+            "proxy": proxy
+        }
+        headers = {"Cookie": cookie} if cookie else None
+        return self._make_request("/api/xhs/search_topic", data, headers)
+
+    def search_suggestion(self, keyword: str, proxy: Optional[str] = None) -> Dict[str, Any]:
+        """获取搜索联想词"""
+        data = {
+            "keyword": keyword,
+            "proxy": proxy
+        }
+        return self._make_request("/api/xhs/search_suggestion", data)
+
+    # ===== 其他功能接口 =====
+    def home_feeds(self, cursor_score: str = "", proxy: Optional[str] = None,
+                   cookie: Optional[str] = None) -> Dict[str, Any]:
+        """获取首页推荐"""
+        data = {
+            "cursor_score": cursor_score,
+            "proxy": proxy
+        }
+        headers = {"Cookie": cookie} if cookie else None
+        return self._make_request("/api/xhs/home_feeds", data, headers)
+
+    def any_account(self, proxy: Optional[str] = None) -> Dict[str, Any]:
+        """获取匿名cookie"""
+        data = {
+            "proxy": proxy
+        }
+        return self._make_request("/api/xhs/any_account", data)
+
+    # ===== 登录相关接口 =====
+    def login_qr_code(self, proxy: Optional[str] = None) -> Dict[str, Any]:
+        """二维码登录 - 获取登录二维码"""
+        data = {
+            "proxy": proxy
+        }
+        return self._make_request("/api/xhs/login_qr_code", data)
+
+    def check_login(self, qr_id: str, code: str, proxy: Optional[str] = None) -> Dict[str, Any]:
+        """二维码登录 - 检查扫码结果"""
+        data = {
+            "qr_id": qr_id,
+            "code": code,
+            "proxy": proxy
+        }
+        return self._make_request("/api/xhs/check_login", data)
+
+    def send_code(self, phone: str, zone: str = "86", proxy: Optional[str] = None) -> Dict[str, Any]:
+        """短信登录 - 发送短信验证码"""
+        data = {
+            "phone": phone,
+            "zone": zone,
+            "proxy": proxy
+        }
+        return self._make_request("/api/xhs/send_code", data)
+
+    def check_code(self, phone: str, code: str, zone: str = "86",
+                   proxy: Optional[str] = None) -> Dict[str, Any]:
+        """短信登录-验证短信"""
+        data = {
+            "phone": phone,
+            "code": code,
+            "zone": zone,
+            "proxy": proxy
+        }
+        return self._make_request("/api/xhs/check_code", data)
+
+    def login_code(self, phone: str, code: str, zone: str = "86",
+                   proxy: Optional[str] = None) -> Dict[str, Any]:
+        """短信登录-登录"""
+        data = {
+            "phone": phone,
+            "code": code,
+            "zone": zone,
+            "proxy": proxy
+        }
+        return self._make_request("/api/xhs/login_code", data)
+
+    def login_code_verify_qr(self, phone: str, proxy: Optional[str] = None) -> Dict[str, Any]:
+        """短信登录-获取验证二维码"""
+        data = {
+            "phone": phone,
+            "proxy": proxy
+        }
+        return self._make_request("/api/xhs/login_code_verify_qr", data)
+
+    def login_code_verify_query(self, verify_uuid: str, proxy: Optional[str] = None) -> Dict[str, Any]:
+        """短信登录-验证扫码结果"""
+        data = {
+            "verify_uuid": verify_uuid,
+            "proxy": proxy
+        }
+        return self._make_request("/api/xhs/login_code_verify_query", data)
+
+    # ===== 已登录用户接口 =====
+    def me(self, proxy: Optional[str] = None, cookie: str = "") -> Dict[str, Any]:
+        """获取已登录的用户信息"""
+        data = {
+            "proxy": proxy
+        }
+        headers = {"Cookie": cookie}
+        return self._make_request("/api/xhs/me", data, headers)
+
+    def me_v2(self, proxy: Optional[str] = None, cookie: str = "") -> Dict[str, Any]:
+        """获取已登录的用户信息v2"""
+        data = {
+            "proxy": proxy
+        }
+        headers = {"Cookie": cookie}
+        return self._make_request("/api/xhs/me_v2", data, headers)
+
+    def mentions(self, cursor: str = "", proxy: Optional[str] = None,
+                 cookie: str = "") -> Dict[str, Any]:
+        """获取已登录的用户的评论和@列表"""
+        data = {
+            "cursor": cursor,
+            "proxy": proxy
+        }
+        headers = {"Cookie": cookie}
+        return self._make_request("/api/xhs/mentions", data, headers)
+
+    def likes(self, cursor: str = "", proxy: Optional[str] = None,
+              cookie: str = "") -> Dict[str, Any]:
+        """获取已登录的用户的赞和收藏"""
+        data = {
+            "cursor": cursor,
+            "proxy": proxy
+        }
+        headers = {"Cookie": cookie}
+        return self._make_request("/api/xhs/likes", data, headers)
+
+    def connections(self, cursor: str = "", proxy: Optional[str] = None,
+                    cookie: str = "") -> Dict[str, Any]:
+        """获取已登录的用户的新增关注"""
+        data = {
+            "cursor": cursor,
+            "proxy": proxy
+        }
+        headers = {"Cookie": cookie}
+        return self._make_request("/api/xhs/connections", data, headers) 

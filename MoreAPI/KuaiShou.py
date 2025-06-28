@@ -1,141 +1,97 @@
-#!/usr/local/bin/python3
-# -*- coding: utf-8 -*-
-
-"""
-@Project : MoreAPI
-@File    : KuaiShou.py
-@Author  : MoreCoding多点部落
-@Time    : 2023/9/14 10:55 AM
-"""
-import requests
-
-from MoreAPI.Auth import Auth
+from .Auth import Auth
+from typing import Optional, Dict, Any, Union, List
 
 
 class KuaiShou(Auth):
-    def __init__(self, token: str):
-        """
-        初始化
-        :param token: 登录用户的token
-        """
-        super().__init__(token)
-        self.user_video_data_url = self.domain + "/api/ks/user_post"
-        self.video_data_url = self.domain + "/api/ks/aweme_detail"
-        self.user_data_url = self.domain + "/api/ks/user_data"
-        self.comments_list_url = self.domain + "/api/ks/video_comment"
-        self.sub_comments_list_url = self.domain + "/api/ks/video_sub_comment"
-        self.search_data_url = self.domain + "/api/ks/search_aweme"
+    """快手API类 - 严格按照接口文档实现所有接口"""
 
-    def user_video_data(self, user_id: str, cursor: str = None, cookie: str = None):
-        """
-        获取用户主页视频数据
-        :param user_id: 用户ID
-        :param cursor: 下一页参数
-        :param cookie: 个人cookie
-        :return:
-        """
-        if not user_id:
-            return None
+    def __init__(self, token: str, domain: str = "http://api.moreapi.cn"):
+        super().__init__(token, domain)
 
-        try:
-            result = requests.post(self.user_video_data_url, headers=self.headers, cookies=cookie,
-                                  json={"user_id": user_id, "cursor": cursor})
-        except:
-            return None
+    # ===== 视频相关接口 =====
+    def aweme_detail(self, share_text: str, proxy: Union[str, bool, None] = None) -> Dict[str, Any]:
+        """获取视频详情"""
+        data = {
+            "share_text": share_text,
+            "proxy": proxy
+        }
+        return self._make_request("/api/ks/aweme_detail", data)
 
-        return result.json()
+    def aweme_detail_app(self, photo_id: Union[str, List[str]], proxy: Union[str, bool, None] = None) -> Dict[str, Any]:
+        """获取视频详情v3"""
+        data = {
+            "photo_id": photo_id,
+            "proxy": proxy
+        }
+        return self._make_request("/api/ks/aweme_detail_app", data)
 
-    def video_data(self, video_id: str, cookie: str = None):
-        """
-        获取视频详情
-        :param video_id: 视频ID
-        :param cookie: 个人cookie
-        :return:
-        """
-        if not video_id:
-            return None
+    def video_comment(self, aweme_id: str, pcursor: str = "", proxy: Union[str, bool, None] = None) -> Dict[str, Any]:
+        """获取视频评论"""
+        data = {
+            "aweme_id": aweme_id,
+            "pcursor": pcursor,
+            "proxy": proxy
+        }
+        return self._make_request("/api/ks/video_comment", data)
 
-        try:
-            result = requests.post(self.video_data_url, headers=self.headers, cookies=cookie,
-                                  json={"aweme_id": video_id})
-        except:
-            return None
+    # ===== 用户相关接口 =====
+    def user_post(self, user_id: str, pcursor: str = "", proxy: Union[str, bool, None] = None,
+                  cookie: str = "") -> Dict[str, Any]:
+        """获取用户主页发布"""
+        data = {
+            "user_id": user_id,
+            "pcursor": pcursor,
+            "proxy": proxy
+        }
+        headers = {"Cookie": cookie}
+        return self._make_request("/api/ks/user_post", data, headers)
 
-        return result.json()
+    def user_post_v3(self, user_id: str, pcursor: str = "", proxy: Union[str, bool, None] = None,
+                     cookie: str = "") -> Dict[str, Any]:
+        """获取用户主页发布v3"""
+        data = {
+            "user_id": user_id,
+            "pcursor": pcursor,
+            "proxy": proxy
+        }
+        headers = {"Cookie": cookie}
+        return self._make_request("/api/ks/user_post_v3", data, headers)
 
-    def user_data(self, user_id: str, cookie: str = None):
-        """
-        获取用户信息
-        :param user_id:  用户ID
-        :param cookie: 个人cookie
-        :return:
-        """
-        if not user_id:
-            return None
+    def user_data(self, user_id: str, proxy: Union[str, bool, None] = None,
+                  cookie: str = "") -> Dict[str, Any]:
+        """获取用户详情"""
+        data = {
+            "user_id": user_id,
+            "proxy": proxy
+        }
+        headers = {"Cookie": cookie}
+        return self._make_request("/api/ks/user_data", data, headers)
 
-        try:
-            result = requests.post(self.user_data_url, headers=self.headers, cookies=cookie,
-                                  json={"user_id": user_id})
-        except:
-            return None
+    def user_data_v2(self, user_id: str, proxy: Union[str, bool, None] = None,
+                     cookie: str = "") -> Dict[str, Any]:
+        """获取用户详情v2"""
+        data = {
+            "user_id": user_id,
+            "proxy": proxy
+        }
+        headers = {"Cookie": cookie}
+        return self._make_request("/api/ks/user_data_v2", data, headers)
 
-        return result.json()
+    # ===== 搜索相关接口 =====
+    def search_aweme(self, query: str, pcursor: str = "", proxy: Union[str, bool, None] = None) -> Dict[str, Any]:
+        """搜索视频"""
+        data = {
+            "query": query,
+            "pcursor": pcursor,
+            "proxy": proxy
+        }
+        return self._make_request("/api/ks/search_aweme", data)
 
-    def comments_list(self, video_id: str, pcursor: str = None, cookie: str = None):
-        """
-        获取视频评论列表
-        :param video_id:  视频ID
-        :param pcursor:  下一页参数
-        :param cookie: 个人cookie
-        :return:
-        """
-        if not video_id:
-            return None
-
-        try:
-            result = requests.post(self.comments_list_url, headers=self.headers, cookies=cookie,
-                                  json={"aweme_id": video_id, "pcursor": pcursor})
-        except:
-            return None
-
-        return result.json()
-
-    def sub_comments_list(self, video_id: str, root_id: str, pcursor: str = None, cookie: str = None):
-        """
-        获取子评论列表
-        :param video_id: 视频ID
-        :param root_id: 父评论ID
-        :param pcursor: 下一页参数
-        :param cookie: 个人cookie
-        :return:
-        """
-        if not video_id or not root_id:
-            return None
-
-        try:
-            result = requests.post(self.comments_list_url, headers=self.headers, cookies=cookie,
-                                  json={"aweme_id": video_id, "pcursor": pcursor, "root_id": root_id})
-        except:
-            return None
-
-        return result.json()
-
-    def search_data(self, keyword: str, type: str = "video", pcursor: str = None, cookie: str = None):
-        """
-        搜索数据
-        :param keyword: 关键词
-        :param type: video/user,搜索视频和用户
-        :param pcursor: 页数
-        :param cookie: 个人cookie
-        :return:
-        """
-        if not keyword:
-            return None
-
-        try:
-            result = requests.post(self.search_data_url, headers=self.headers, cookies=cookie,
-                                  params={"keyword": keyword, "pcursor": pcursor})
-        except:
-            return None
-
-        return result.json()
+    # ===== 其他功能接口 =====
+    def aweme_share_link(self, aweme_id: str, proxy: Union[str, bool, None] = None) -> Dict[str, Any]:
+        """获取视频分享链接"""
+        data = {
+            "aweme_id": aweme_id,
+            "proxy": proxy
+        }
+        return self._make_request("/api/ks/aweme_share_link", data) 
