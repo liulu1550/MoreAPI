@@ -321,7 +321,7 @@ except Exception as e:
 
 ## 🔗 获取API Token
 
-1. 访问 [MoreAPI官网](https://api.moreapi.cn)
+1. 访问 [MoreAPI官网](http://api.moreapi.cn)
 2. 注册账号并登录
 3. 在控制台获取您的API Token
 4. 查看 [API文档](https://ziopqu50k5.apifox.cn/) 了解详细使用方法
@@ -361,8 +361,8 @@ MIT License
 
 - 官网：https://api.moreapi.cn
 - 文档：https://ziopqu50k5.apifox.cn/
-- 邮箱：support@moreapi.cn
-- GitHub：https://github.com/moreapi/moreapi-python-sdk
+- 邮箱：wouldmissyou@163.com
+- GitHub：https://github.com/liulu1550/MoreAPI
 
 ---
 
