@@ -7,7 +7,6 @@
 如果您有任何建议或者需求，请联系站长，更多的功能正在开发中，敬请期待！
 
 
-
 文档地址：[https://ziopqu50k5.apifox.cn/](https://ziopqu50k5.apifox.cn/)
 
 ## Authorization/鉴权
@@ -100,7 +99,7 @@ MoreAPI接口文档： [https://ziopqu50k5.apifox.cn/](https://ziopqu50k5.apifox
 
 #### 注册账号
 
-注册地址  [https://ziopqu50k5.apifox.cn/5808795m0](https://ziopqu50k5.apifox.cn/5808795m0)
+注册地址  [http://api.moreapi.cn/api/auth/register/](http://api.moreapi.cn/api/auth/register/)
 
 #### 调用示例
 
